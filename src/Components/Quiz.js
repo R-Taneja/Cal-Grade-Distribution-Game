@@ -7,8 +7,10 @@ function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [chosenAnswer, setChosenAnswer] = useState("");
 
+  // TODO - to make the questions random, just make a function that randomizes the order of the Questions array at the top of this file instead of dealing with multiple arrays to keep track of which questions you've already asked
+
   useEffect(() => {
-    console.log(score);
+    console.log(score); // TODO
   }, [score]);
 
   const nextQuestion = () => {
@@ -27,7 +29,7 @@ function Quiz() {
 
   return (
     <div className="Quiz">
-      <h1>{Questions[currentQuestion].prompt}</h1>
+      <img src={Questions[currentQuestion].image} width={400} alt="" />
       <div className="answers">
         <button onClick={() => setChosenAnswer("A")}>
           {Questions[currentQuestion].optionA}
@@ -43,10 +45,10 @@ function Quiz() {
           </button>
       </div>
 
-      {currentQuestion == Questions.length - 1 ? (
-        <button onClick={finishQuiz}>Finish Quiz</button>
+      {currentQuestion === Questions.length - 1 ? (
+        <button onClick={finishQuiz}>FINISH QUIZ</button>
       ) : (
-      <button onClick={nextQuestion}>Next Question</button>
+      <button onClick={nextQuestion}>NEXT QUESTION</button>
       )}
     </div>
   )
