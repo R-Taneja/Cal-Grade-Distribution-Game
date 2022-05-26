@@ -10,7 +10,7 @@ function App() {
   const [score, setScore] = useState(0);
 
   return (
-    <div className='App'>
+    <div className='ms-display-flex ms-flex-direction-column ms-flex-justify-center ms-flex-align-items-center ms-flex-align-content-center'>
       <h1>BERKELEYTIME GRADE DISTRIBUTION QUIZ</h1>
       <QuizContext.Provider value={{ gameState, setGameState, score, setScore }}>
         {gameState === "home" && <Home />}
