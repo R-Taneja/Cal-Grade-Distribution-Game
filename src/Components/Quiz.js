@@ -28,29 +28,29 @@ function Quiz() {
   }
 
   return (
-    <div className="Quiz">
-      <img src={Questions[currentQuestion].image} width={400} alt="" />
-      <div className="answers">
-        <button onClick={() => setChosenAnswer("A")}>
+    <>
+      <img src={Questions[currentQuestion].image} style={{ maxWidth: 800, height: "auto", width: "100%", margin: 25, borderRadius: 25 }} alt="Berkeleytime grade distribution" />
+      <div className="ms-btn-group" style={{ marginLeft: 25, marginRight: 25, marginBottom: 10 }}>
+        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("A")}>
           {Questions[currentQuestion].optionA}
           </button>
-        <button onClick={() => setChosenAnswer("B")}>
+        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("B")}>
           {Questions[currentQuestion].optionB}
           </button>
-        <button onClick={() => setChosenAnswer("C")}>
+        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("C")}>
           {Questions[currentQuestion].optionC}
           </button>
-        <button onClick={() => setChosenAnswer("D")}>
+        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("D")}>
           {Questions[currentQuestion].optionD}
           </button>
       </div>
 
       {currentQuestion === Questions.length - 1 ? (
-        <button onClick={finishQuiz}>FINISH QUIZ</button>
+        <button className="ms-btn ms-medium" onClick={finishQuiz}>FINISH QUIZ</button>
       ) : (
-      <button onClick={nextQuestion}>NEXT QUESTION</button>
+      <button className="ms-btn ms-medium" onClick={nextQuestion}>NEXT QUESTION</button>
       )}
-    </div>
+    </>
   )
 }
 
