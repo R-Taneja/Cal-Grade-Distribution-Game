@@ -6,49 +6,94 @@ function Quiz() {
   const { score, setScore } = useContext(QuizContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [chosenAnswer, setChosenAnswer] = useState("");
+  const [answerAChosen, setAnswerAChosen] = useState(false);
+  const [answerBChosen, setAnswerBChosen] = useState(false);
+  const [answerCChosen, setAnswerCChosen] = useState(false);
+  const [answerDChosen, setAnswerDChosen] = useState(false);
+  const [questions, setQuestions] = useState(Questions);
 
-  // TODO - to make the questions random, just make a function that randomizes the order of the Questions array at the top of this file instead of dealing with multiple arrays to keep track of which questions you've already asked
+  const shuffleArray = arr => {
+    const shuffledArray = arr.slice()
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const rand = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[rand]] = [shuffledArray[rand], shuffledArray[i]];
+    }
+    return shuffledArray;
+  };
 
   useEffect(() => {
-    console.log(score); // TODO
+    setQuestions(shuffleArray(questions));
   }, [score]);
 
   const nextQuestion = () => {
-    if (Questions[currentQuestion].answer === chosenAnswer) {
-      setScore(score + 1);
+    if (chosenAnswer === "") {
+      alert("Please choose an answer");
+    } else {
+      if (questions[currentQuestion].answer === chosenAnswer) {
+        setScore(score + 1);
+      }
+      setCurrentQuestion(currentQuestion + 1);
+      setAnswerAChosen(false);
+      setAnswerBChosen(false);
+      setAnswerCChosen(false);
+      setAnswerDChosen(false);
     }
-    setCurrentQuestion(currentQuestion + 1);
   }
 
   const finishQuiz = () => {
-    if (Questions[currentQuestion].answer === chosenAnswer) {
+    if (questions[currentQuestion].answer === chosenAnswer) {
       setScore(score + 1);
     }
     // TODO: Finish the quiz
   }
 
+  const handleAnswer = (answer) => {
+    setChosenAnswer(answer);
+    if (answer === "A") {
+      setAnswerAChosen(true);
+      setAnswerBChosen(false);
+      setAnswerCChosen(false);
+      setAnswerDChosen(false);
+    } else if (answer === "B") {
+      setAnswerAChosen(false);
+      setAnswerBChosen(true);
+      setAnswerCChosen(false);
+      setAnswerDChosen(false);
+    } else if (answer === "C") {
+      setAnswerAChosen(false);
+      setAnswerBChosen(false);
+      setAnswerCChosen(true);
+      setAnswerDChosen(false);
+    } else if (answer === "D") {
+      setAnswerAChosen(false);
+      setAnswerBChosen(false);
+      setAnswerCChosen(false);
+      setAnswerDChosen(true);
+    }
+  }
+
   return (
     <>
-      <img src={Questions[currentQuestion].image} style={{ maxWidth: 800, height: "auto", width: "100%", margin: 25, borderRadius: 25 }} alt="Berkeleytime grade distribution" />
+      <img src={questions[currentQuestion].image} style={{ maxWidth: 800, height: "auto", width: "100%", margin: 25, borderRadius: 25 }} alt="Berkeleytime grade distribution" />
       <div className="ms-btn-group" style={{ marginLeft: 25, marginRight: 25, marginBottom: 10 }}>
-        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("A")}>
-          {Questions[currentQuestion].optionA}
+        <button className={`ms-btn ms-rounded ${answerAChosen ? "ms-primary" : ""}`} onClick={() => handleAnswer("A")}>
+          {questions[currentQuestion].optionA}
           </button>
-        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("B")}>
-          {Questions[currentQuestion].optionB}
+        <button className={`ms-btn ms-rounded ${answerBChosen ? "ms-primary" : ""}`} onClick={() => handleAnswer("B")}>
+          {questions[currentQuestion].optionB}
           </button>
-        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("C")}>
-          {Questions[currentQuestion].optionC}
+        <button className={`ms-btn ms-rounded ${answerCChosen ? "ms-primary" : ""}`} onClick={() => handleAnswer("C")}>
+          {questions[currentQuestion].optionC}
           </button>
-        <button className="ms-btn ms-large ms-rounded" onClick={() => setChosenAnswer("D")}>
-          {Questions[currentQuestion].optionD}
+        <button className={`ms-btn ms-rounded ${answerDChosen ? "ms-primary" : ""}`} onClick={() => handleAnswer("D")}>
+          {questions[currentQuestion].optionD}
           </button>
       </div>
 
-      {currentQuestion === Questions.length - 1 ? (
-        <button className="ms-btn ms-medium" onClick={finishQuiz}>FINISH QUIZ</button>
+      {currentQuestion === questions.length - 1 ? (
+        <button className="ms-btn ms-medium" onClick={finishQuiz}>VIEW SCORE</button>
       ) : (
-      <button className="ms-btn ms-medium" onClick={nextQuestion}>NEXT QUESTION</button>
+      <button className="ms-btn ms-medium" onClick={nextQuestion}>NEXT</button>
       )}
     </>
   )
