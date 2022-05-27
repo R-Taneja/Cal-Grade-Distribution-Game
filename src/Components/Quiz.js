@@ -12,6 +12,7 @@ function Quiz() {
   const [answerDChosen, setAnswerDChosen] = useState(false);
   const [questions, setQuestions] = useState(Questions);
   const [isLoading, setIsLoading] = useState(true);
+  const { setGameState } = useContext(QuizContext);
 
   const shuffleArray = (arr) => {
     const shuffledArray = arr.slice()
@@ -47,7 +48,7 @@ function Quiz() {
     if (questions[currentQuestion].answer === chosenAnswer) {
       setScore(score + 1);
     }
-    // TODO: Finish the quiz
+    setGameState("end");
   }
 
   const handleAnswer = (answer) => {
@@ -78,7 +79,7 @@ function Quiz() {
   return (
     <>
       <div style={{display: isLoading ? "block" : "none"}}>
-        <div style={{ maxWidth: 800, minHeight: 300, width: "100%", margin: 25}}>
+        <div style={{ maxWidth: 800, minHeight: 250, width: "100%", margin: 25}}>
           <div className="ms-loading ms-action"></div>
         </div>
       </div>

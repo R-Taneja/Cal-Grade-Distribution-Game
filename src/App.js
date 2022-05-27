@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Home from './Components/Home';
 import Quiz from './Components/Quiz';
+import EndScreen from './Components/EndScreen';
 import { QuizContext } from './Helpers/Contexts';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <QuizContext.Provider value={{ gameState, setGameState, score, setScore }}>
         {gameState === "home" && <Home />}
         {gameState === "quiz" && <Quiz />}
+        {gameState === "end" && <EndScreen />}
       </QuizContext.Provider>
     </div>
   );
