@@ -78,7 +78,7 @@ function Quiz() {
     <>
       <div style={{display: isLoading ? "block" : "none"}}>
         <div style={{ maxWidth: 800, minHeight: 300, width: "100%", margin: 25}}>
-          <div class="ms-loading ms-primary"></div>
+          <div className="ms-loading ms-primary"></div>
         </div>
       </div>
       <div style={{display: isLoading ? "none" : "block"}}>
@@ -104,6 +104,10 @@ function Quiz() {
       ) : (
       <button className="ms-btn ms-medium" onClick={nextQuestion}>NEXT</button>
       )}
+
+      <div className="ms-progress" style={{ maxWidth: 800, marginTop: 25, marginBottom: 25 }}>
+        <div className="ms-progress-fill" style={{ width: `${(score/questions.length) * 100}%` }}>{score}</div>
+      </div>
     </>
   )
 }
