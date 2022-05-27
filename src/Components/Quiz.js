@@ -13,7 +13,7 @@ function Quiz() {
   const [questions, setQuestions] = useState(Questions);
   const [isLoading, setIsLoading] = useState(true);
 
-  const shuffleArray = arr => {
+  const shuffleArray = (arr) => {
     const shuffledArray = arr.slice()
     for (let i = shuffledArray.length - 1; i > 0; i--) {
         const rand = Math.floor(Math.random() * (i + 1));
@@ -27,6 +27,7 @@ function Quiz() {
   }, [score]);
 
   const nextQuestion = () => {
+    console.log(questions);
     if (chosenAnswer === "") {
       alert("Please choose an answer");
     } else {
@@ -78,7 +79,7 @@ function Quiz() {
     <>
       <div style={{display: isLoading ? "block" : "none"}}>
         <div style={{ maxWidth: 800, minHeight: 300, width: "100%", margin: 25}}>
-          <div className="ms-loading ms-primary"></div>
+          <div className="ms-loading ms-action"></div>
         </div>
       </div>
       <div style={{display: isLoading ? "none" : "block"}}>
