@@ -11,6 +11,7 @@ function Quiz() {
   const [answerCChosen, setAnswerCChosen] = useState(false);
   const [answerDChosen, setAnswerDChosen] = useState(false);
   const [questions, setQuestions] = useState(Questions);
+  const [isLoading, setIsLoading] = useState(true);
 
   const shuffleArray = arr => {
     const shuffledArray = arr.slice()
@@ -37,6 +38,7 @@ function Quiz() {
       setAnswerBChosen(false);
       setAnswerCChosen(false);
       setAnswerDChosen(false);
+      setIsLoading(true);
     }
   }
 
@@ -74,7 +76,14 @@ function Quiz() {
 
   return (
     <>
-      <img src={questions[currentQuestion].image} style={{ maxWidth: 800, height: "auto", width: "100%", margin: 25, borderRadius: 25 }} alt="Berkeleytime grade distribution" />
+      <div style={{display: isLoading ? "block" : "none"}}>
+        <div style={{ maxWidth: 800, minHeight: 300, width: "100%", margin: 25}}>
+          <div class="ms-loading ms-primary"></div>
+        </div>
+      </div>
+      <div style={{display: isLoading ? "none" : "block"}}>
+        <img onLoad={() => setIsLoading(false)} src={questions[currentQuestion].image} style={{ maxWidth: 800, height: "auto", width: "100%", marginBottom: 25, borderRadius: 25 }} alt="Berkeleytime grade distribution" />
+      </div>
       <div className="ms-btn-group" style={{ marginLeft: 25, marginRight: 25, marginBottom: 10 }}>
         <button className={`ms-btn ms-rounded ${answerAChosen ? "ms-primary" : ""}`} onClick={() => handleAnswer("A")}>
           {questions[currentQuestion].optionA}
